@@ -9,5 +9,7 @@ $result=$connection->query("select * from appiontment");
 if ($result!=null){
 	echo $result->rowCount();
 	echo "OK";
+} else {
+	echo "สมน้ำหน้า";
 }
 
