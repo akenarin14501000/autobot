@@ -1,3 +1,3 @@
-<? php
-echo 'OK';
+<?php
+echo 'ทดสอบระบบ';
 
