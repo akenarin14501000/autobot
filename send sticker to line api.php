@@ -20,17 +20,15 @@ if(!is_null($events['events'])){
 		if($event['type']=='message'){
 			//Get replyToken
 			 $replyToken=$event['replyToken'];
-			$title='I am here';
-			$address='hi what sup';
-			$latitude='13.7743425';
-			$longtitude='100.5680782';
+			$packageId=1;
+			$stickerId=410;
 	
 			$httpClient=new CurlHTTPClient($channel_token);
 			$bot=new LINEBot($httpClient,array('channelSecret'=>$channel_secret));	
-			$textMessageBuilder=new LocationMessageBuilder($title,$address,$latitude,$longtitude);
+			$textMessageBuilder=new StickerMessageBuilder($packageId,$stickerId);
 			$response=$bot->replyMessage($replyToken,$textMessageBuilder);
 		}
 	}
 }
 
-echo 'Location';
+echo 'Sticker';
