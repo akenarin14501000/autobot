@@ -1,5 +1,5 @@
 <?php
-require_once('./vender/autoload.php');
+require_once('./vendor/autoload.php');
 
 #Namespace
 use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
@@ -10,7 +10,7 @@ $channel_token='TUChny/ZBXe1rsUoqQyXj6rHNTN+efSNtWn4W65LGh4f96G/xnRomNi0A4iKBhZ7
 $channel_secret='41941150e071e4009e1b8f5c93e36a7a';
 
 #Get message from line api
-$content =file_get+contents('php://input');
+$content =file_get_contents('php://input');
 $events=json_decode($content,true);
 
 if(!is_null($events['events'])){
