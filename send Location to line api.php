@@ -23,11 +23,11 @@ if(!is_null($events['events'])){
 			$title='I am here';
 			$address='hi what sup';
 			$latitude='13.7743425';
-			$longtitude='100.5680782';
+			$longitude='100.5680782';
 	
 			$httpClient=new CurlHTTPClient($channel_token);
 			$bot=new LINEBot($httpClient,array('channelSecret'=>$channel_secret));	
-			$textMessageBuilder=new LocationMessageBuilder($title,$address,$latitude,$longtitude);
+			$textMessageBuilder=new LocationMessageBuilder($title,$address,$latitude,$longitude);
 			$response=$bot->replyMessage($replyToken,$textMessageBuilder);
 		
 	}
