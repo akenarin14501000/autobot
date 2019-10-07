@@ -17,7 +17,7 @@ if(!is_null($events['events'])){
 	//loop through each event
 	foreach($events['events'] as $event){
 		//line api send a lot of event type,we interested in message only.
-		if($event['type']=='message'){
+		
 			//Get replyToken
 			 $replyToken=$event['replyToken'];
 			$packageId=1;
@@ -27,7 +27,7 @@ if(!is_null($events['events'])){
 			$bot=new LINEBot($httpClient,array('channelSecret'=>$channel_secret));	
 			$textMessageBuilder=new StickerMessageBuilder($packageId,$stickerId);
 			$response=$bot->replyMessage($replyToken,$textMessageBuilder);
-		}
+	
 	}
 }
 
