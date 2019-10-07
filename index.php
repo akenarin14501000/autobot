@@ -29,53 +29,10 @@ if(!is_null($events['events'])){
 				$respMessage='Love you lady.';
 			break;
 			default:
-			$respMessage='What is your sex? M or F';			
+			$respMessage='What is your sex? M or F';
+				break;
 			 }
-			switch($event['message']['type']){
-			case'location';
-			 $address=$event['message']['address'];
-           			//reply message
-			$respMessage='Hello,your address is'.$address;
-			break;	
-			case'audio';
-			 $messageID=$event['message']['id'];
-           			//create video file on server
-					$fileID=$event['message']['id'];
-					$response=$bot->getMessageContent($fileID);
-					$fileName='linebot.m4a';
-					$file=fopen($fileName,'w');
-					fwrite($file,$response->getRawBody());
-			$respMessage='Hello,your Audio ID is'.$messageID;
-			break;	
-			case'video';
-			 $messageID=$event['message']['id'];
-           			//create video file on server
-					$fileID=$event['message']['id'];
-					$response=$bot->getMessageContent($fileID);
-					$fileName='linebot.mp4';
-					$file=fopen($fileName,'w');
-					fwrite($file,$response->getRawBody());
-			$respMessage='Hello,your Video ID is'.$messageID;
-			break;
-			
-			case'sticker';
-			 $messageID=$event['message']['packageId'];
-           			//reply sticker
-			$respMessage='Hello,your sticker package ID is'.$messageID;
-			break;
-			
-			 case'image';
-			 $messageID=$event['message']['id'];
-           			//reply message
-			$respMessage='Hello,your image ID is'.$messageID;
-			break;
-			
-			default:
-			$respMessage='Please send image only';
-			
-			
-			break;
-			}
+	
 			$httpClient=new CurlHTTPClient($channel_token);
 			$bot=new LINEBot($httpClient,array('channelSecret'=>$channel_secret));	
 			$textMessageBuilder=new TextMessageBuilder($respMessage);
