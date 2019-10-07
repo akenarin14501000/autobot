@@ -20,7 +20,31 @@ if(!is_null($events['events'])){
 		if($event['type']=='message'){
 			//Get replyToken
 			 $replyToken=$event['replyToken'];
+			 $ask=$event['message']['text'];
+			 switch(strtolower($ask)){
+			case 'm';
+				$respMessage='What sup man.Go a way';
+			break;	
+			case 'f';
+				$respMessage='Love you lady.';
+			break;				
+			 }
 			switch($event['message']['type']){
+			case'location';
+			 $address=$event['message']['address'];
+           			//reply message
+			$respMessage='Hello,your address is'.$address;
+			break;	
+			case'audio';
+			 $messageID=$event['message']['id'];
+           			//create video file on server
+					$fileID=$event['message']['id'];
+					$response=$bot->getMessageContent($fileID);
+					$fileName='linebot.m4a';
+					$file=fopen($fileName,'w');
+					fwrite($file,$response->getRawBody());
+			$respMessage='Hello,your Audio ID is'.$messageID;
+			break;	
 			case'video';
 			 $messageID=$event['message']['id'];
            			//create video file on server
