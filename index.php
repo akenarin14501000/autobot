@@ -20,16 +20,25 @@ if(!is_null($events['events'])){
 		if($event['type']=='message'){
 			//Get replyToken
 			 $replyToken=$event['replyToken'];
-			$originalContentUrl='https://www.beartai.com/wp-content/uploads/2017/11/22886328_10208432809332575_6674604265514277172_n.jpg';
-			$previewImageUrl='https://www.beartai.com/wp-content/uploads/2017/11/22886328_10208432809332575_6674604265514277172_n.jpg';
+			 $ask=$event['message']['text'];
+			switch(strtolower($ask)){
+			case 'm';
+				$respMessage='What sup man.Go a way';
+			break;	
+			case 'f';
+				$respMessage='Love you lady.';
+			break;
+			default:
+			$respMessage='What is your sex? M or F';
+				break;
+			 }
 	
 			$httpClient=new CurlHTTPClient($channel_token);
 			$bot=new LINEBot($httpClient,array('channelSecret'=>$channel_secret));	
-			$textMessageBuilder=new ImageMessageBuilder($originalContentUrl,$previewImageUrl);
+			$textMessageBuilder=new TextMessageBuilder($respMessage);
 			$response=$bot->replyMessage($replyToken,$textMessageBuilder);
-		
 		}
 	}
 }
 
-echo 'Image';
+echo 'Send Text';
