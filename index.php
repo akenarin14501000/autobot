@@ -21,11 +21,29 @@ if(!is_null($events['events'])){
 			//Get replyToken
 			 $replyToken=$event['replyToken'];
 			switch($event['message']['type']){
+			case'video';
+			 $messageID=$event['message']['id'];
+           			//create video file on server
+					$fileID=$event['message']['id'];
+					$response=$bot->getMessageContent()$fileID;
+					$fileName='linebot.mp4';
+					$file=fopen($fileName,'w');
+					fwrite($file,$response->getRawBody());
+			$respMessage='Hello,your Video ID is'.$messageID;
+			break;
+			
+			case'sticker';
+			 $messageID=$event['message']['packageId'];
+           			//reply sticker
+			$respMessage='Hello,your sticker package ID is'.$messageID;
+			break;
+			
 			 case'image';
 			 $messageID=$event['message']['id'];
            			//reply message
 			$respMessage='Hello,your image ID is'.$messageID;
 			break;
+			
 			default:
 			$respMessage='Please send image only';
 			
@@ -34,7 +52,7 @@ if(!is_null($events['events'])){
 			}
 			$httpClient=new CurlHTTPClient($channel_token);
 			$bot=new LINEBot($httpClient,array('channelSecret'=>$channel_secret));	
-			$textMessageBuilder=newTextMessageBuilder($respMessage);
+			$textMessageBuilder=new TextMessageBuilder($respMessage);
 			$response=$bot->replyMessage($replyToken,$textMessageBuilder);
 		}
 	}
