@@ -20,12 +20,12 @@ if(!is_null($events['events'])){
 		if($event['type']=='message'){
 			//Get replyToken
 			 $replyToken=$event['replyToken'];
-			$packageID=1;
-			$stickerID=410;
+			$packageId=1;
+			$stickerId=410;
 	
 			$httpClient=new CurlHTTPClient($channel_token);
 			$bot=new LINEBot($httpClient,array('channelSecret'=>$channel_secret));	
-			$textMessageBuilder=new StickerMessageBuilder($packageID,$stickerID);
+			$textMessageBuilder=new StickerMessageBuilder($packageId,$stickerId);
 			$response=$bot->replyMessage($replyToken,$textMessageBuilder);
 		}
 	}
