@@ -21,13 +21,15 @@ if(!is_null($events['events'])){
 			//Get replyToken
 			 $replyToken=$event['replyToken'];
 			 $ask=$event['message']['text'];
-			 switch(strtolower($ask)){
+			switch(strtolower($ask)){
 			case 'm';
 				$respMessage='What sup man.Go a way';
 			break;	
 			case 'f';
 				$respMessage='Love you lady.';
-			break;				
+			break;
+			default:
+			$respMessage='What is your sex? M or F';			
 			 }
 			switch($event['message']['type']){
 			case'location';
