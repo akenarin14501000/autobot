@@ -17,28 +17,17 @@ if(!is_null($events['events'])){
 	//loop through each event
 	foreach($events['events'] as $event){
 		//line api send a lot of event type,we interested in message only.
-		if($event['type']=='message'){
+		//if($event['type']=='message'){
 			//Get replyToken
-			 $replyToken=$event['replyToken'];
-			 $ask=$event['message']['text'];
-			switch(strtolower($ask)){
-			case 'm';
-				$respMessage='What sup man.Go a way';
-			break;	
-			case 'f';
-				$respMessage='Love you lady.';
-			break;
-			default:
-			$respMessage='What is your sex? M or F';
-				break;
-			 }
-	
+			$replyToken=$event['replyToken'];
+			$originalContentUrl='https://www.beartai.com/wp-content/uploads/2017/11/22886328_10208432809332575_6674604265514277172_n.jpg';
+			$previewImageUrl='https://www.beartai.com/wp-content/uploads/2017/11/22886328_10208432809332575_6674604265514277172_n.jpg';
 			$httpClient=new CurlHTTPClient($channel_token);
 			$bot=new LINEBot($httpClient,array('channelSecret'=>$channel_secret));	
 			$textMessageBuilder=new TextMessageBuilder($respMessage);
 			$response=$bot->replyMessage($replyToken,$textMessageBuilder);
-		}
+		//}
 	}
 }
 
-echo 'Send Text';
+echo 'Send Image';
