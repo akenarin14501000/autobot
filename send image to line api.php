@@ -20,12 +20,12 @@ if(!is_null($events['events'])){
 		if($event['type']=='message'){
 			//Get replyToken
 			 $replyToken=$event['replyToken'];
-			$packetID='1';
-			$stickerID='10';
+			$originalContentUrl='https://www.beartai.com/wp-content/uploads/2017/11/22886328_10208432809332575_6674604265514277172_n.jpg';
+			$previewImageUrl='https://www.beartai.com/wp-content/uploads/2017/11/22886328_10208432809332575_6674604265514277172_n.jpg';
 	
 			$httpClient=new CurlHTTPClient($channel_token);
 			$bot=new LINEBot($httpClient,array('channelSecret'=>$channel_secret));	
-			$textMessageBuilder=new StickerMessageBuilder($packetID,$stickerID);
+			$textMessageBuilder=new ImageMessageBuilder($originalContentUrl,$previewImageUrl);
 			$response=$bot->replyMessage($replyToken,$textMessageBuilder);
 		}
 	}
