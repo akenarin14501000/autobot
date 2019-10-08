@@ -21,35 +21,103 @@ if(!is_null($events['events'])){
 			//Get replyToken
 			$replyToken=$event['replyToken'];
 			//split message then keep it in database.
-			$appointment=explode(',',$event['message']['text']);
-			if(count($appointment)==2){
-				$host='ec2-54-83-9-169.compute-1.amazonaws.com';
-				$dbname='d5rut4lfvlp4ar';
-				$user='isnivawtdytcrl';
-				$pass='fab82d419311ad5a75b8c1719c6acc014ee88e6f7954c3bfe7f134401d838587';
-				$connection=new PDO("pgsql:dbname=$dbname;host=$host", $user, $pass);
-				
+			//$appointment=explode(',',$event['message']['text']);
+			try{
+			$host='ec2-54-83-9-169.compute-1.amazonaws.com';
+			$dbname='d5rut4lfvlp4ar';
+			$user='isnivawtdytcrl';
+			$pass='fab82d419311ad5a75b8c1719c6acc014ee88e6f7954c3bfe7f134401d838587';
+			$connection=new PDO("pgsql:dbname=$dbname;host=$host", $user, $pass);
+			$sql=sprintf('SELECT * FROM poll WHERE user_id='%s'',$event['source']['userId']);		
+			$result=$connection->query($sql);
+			error_log($sql);
+			if ($result==false || $result->rowcount()<=0){
+			switch ($event['message']['text']){
+				case'1':
+				#Insert
 				$params=array(
-				'time'=>$appointment[0],
-				'content'=>$appointment[1],
-				);
+				'userId'=>$event['source']['userId'],
+				'answer'=>'1',);
+				$statement=$connection->prepare('INSERT INTO poll (user_id,answer) values (:userId,:answer)' );
+				$statement->execute($params);
+			$sql=sprintf("SELECT * FROM poll WHERE answer='1' and user_id='%s'",$event['source']['userId']);	
+			$result=$connection->query($sql);	
+			$amount=1;
+				if ($result){
+					$amount=$result->rowcount();
+				}
+				$respMessage="จำนวนคนตอบว่าเพื่อน = ".$amount;
+				break;
 				
-				$statement=$connection->prepare('INSERT INTO appointment (time,content) VALUES(:time,:content)');
-				$rerult=$statement->execute($params);
-			$respMessage="บันทึกข้อมูลเรียบร้อยแล้วครับ";
-			
-			
-			}else{
-			$respMessage="ไม่สามรถทำงานได้ Error";	
+				case'2':
+				#Insert
+				$params=array(
+				'userId'=>$event['source']['userId'],
+				'answer'=>'2',);
+				$statement=$connection->prepare('INSERT INTO poll (user_id,answer) values (:userId,:answer)' );
+				$statement->execute($params);
+			$sql=sprintf("SELECT * FROM poll WHERE answer='2' and user_id='%s'",$event['source']['userId']);	
+			$result=$connection->query($sql);	
+			$amount=1;
+				if ($result){
+					$amount=$result->rowcount();
+				}
+				$respMessage="จำนวนคนตอบว่าแฟน = ".$amount;
+				break;
+				
+				case'3':
+				#Insert
+				$params=array(
+				'userId'=>$event['source']['userId'],
+				'answer'=>'3',);
+				$statement=$connection->prepare('INSERT INTO poll (user_id,answer) values (:userId,:answer)' );
+				$statement->execute($params);
+			$sql=sprintf("SELECT * FROM poll WHERE answer='3' and user_id='%s'",$event['source']['userId']);	
+			$result=$connection->query($sql);	
+			$amount=1;
+				if ($result){
+					$amount=$result->rowcount();
+				}
+				$respMessage="จำนวนคนตอบว่าพ่อแม่ = ".$amount;
+				break;
+				
+				case'4':
+				#Insert
+				$params=array(
+				'userId'=>$event['source']['userId'],
+				'answer'=>'4',);
+				$statement=$connection->prepare('INSERT INTO poll (user_id,answer) values (:userId,:answer)' );
+				$statement->execute($params);
+			$sql=sprintf("SELECT * FROM poll WHERE answer='4' and user_id='%s'",$event['source']['userId']);	
+			$result=$connection->query($sql);	
+			$amount=1;
+				if ($result){
+					$amount=$result->rowcount();
+				}
+				$respMessage="จำนวนคนตอบว่าบุคคลอื่นๆ = ".$amount;
+				break;
+			default:
+				$respMessage="บุคคลที่ท่านโทรหาบ่อยที่สุด คือ ?  \n\r
+				กด 1 เพื่อน	\n\r
+				กด 2 แฟน	\n\r
+				กด 3 พ่อแม่	\n\r
+				กด 4 บุคคลอื่นๆ	\n\r
+				";
+				break;
 			}
-			
-			
+			}else{
+					$respMessage="ท่านได้ตอบโพลล์นี้แล้ว"
+			}
+		
 			$httpClient=new CurlHTTPClient($channel_token);
 			$bot=new LINEBot($httpClient,array('channelSecret'=>$channel_secret));	
 			$textMessageBuilder=new TextMessageBuilder($respMessage);
 			$response=$bot->replyMessage($replyToken,$textMessageBuilder);
-		}
+		} catch (Exception $e){
+			error_log($e->getMessage());
+		}		
+	  }
 	}
 }
 
-echo 'System Appointment';
+echo 'System Poll';
