@@ -40,7 +40,7 @@ if(!is_null($events['events'])){
 			
 			
 			}else{
-			$respMessage="ไม่สามรถทพำงานไกเ Error";	
+			$respMessage="ไม่สามรถทำงานได้ Error";	
 			}
 			
 			
@@ -52,4 +52,4 @@ if(!is_null($events['events'])){
 	}
 }
 
-echo 'System Operator';
+echo 'System Appointment';
