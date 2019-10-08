@@ -28,7 +28,7 @@ if(!is_null($events['events'])){
 			$respMessage="165 หมู่ 4 ตำบลหัวช้าง อำเภอจตุรพักตรพิมาน จังหวัดร้อยเอ็ด";
 			break;
 			case 'boss';
-			$respMessage="093-3987755";
+			$respMessage="เอกนรินทร์ ครับๆๆๆๆๆๆๆๆๆ";
 			break;
 			case 'idcard';
 			$respMessage="akenarin phrasarn";
