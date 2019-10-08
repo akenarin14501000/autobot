@@ -20,27 +20,22 @@ if(!is_null($events['events'])){
 		if($event['type']=='message' && $event['message']['type']=='text' ){
 			//Get replyToken
 			$replyToken=$event['replyToken'];
-			//split message then keep it in database.
-			$appointment=explode(',',$event['message']['text']);
-			if(count($appointment)==2){
-				$host='ec2-54-83-9-169.compute-1.amazonaws.com';
-				$dbname='d5rut4lfvlp4ar';
-				$user='isnivawtdytcrl';
-				$pass='fab82d419311ad5a75b8c1719c6acc014ee88e6f7954c3bfe7f134401d838587';
-				$connection=new PDO("pgsql:dbname=$dbname;host=$host", $user, $pass);
-				
-				$params=array(
-				'time'=>$appointment[0];
-				'content'=>$appointment[1];
-				);
-				
-				$statement=$connection->prepare('INSERT INTO appointment (time,content) VALUES(:time,:content)');
-				$rerult=$statement->execute($params);
-			$respMessage="บันทึกข้อมูลเรียบร้อยแล้วครับ";
-			
-			
-			}else{
-			$respMessage="ไม่สามรถทพำงานไกเ Error";	
+			switch($event['message']['text']){
+			case 'tel';
+			$respMessage="089-5124512";
+			break;
+			case 'address';
+			$respMessage="165 หมู่ 4 ตำบลหัวช้าง อำเภอจตุรพักตรพิมาน จังหวัดร้อยเอ็ด";
+			break;
+			case 'boss';
+			$respMessage="เอกนรินทร์ ครับๆๆๆๆๆๆๆๆๆ";
+			break;
+			case 'idcard';
+			$respMessage="akenarin phrasarn";
+			break;
+			default:
+			$respMessage="คำถามไม่ถูกต้อง {tel,address,boss,idcard} ";
+			break;
 			}
 			
 			
