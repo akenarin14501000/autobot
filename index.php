@@ -20,7 +20,7 @@ if(!is_null($events['events'])){
 		if($event['type']=='message' && $event['message']['type']=='text' ){
 			//Get replyToken
 			$replyToken=$event['replyToken'];
-			switch ($event['message']['type']){
+			switch($event['message']['text']){
 			case 'tel';
 			$respMessage="089-5124512";
 			break;
