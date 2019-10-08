@@ -30,8 +30,8 @@ if(!is_null($events['events'])){
 				$connection=new PDO("pgsql:dbname=$dbname;host=$host", $user, $pass);
 				
 				$params=array(
-				'time'=>$appointment[0];
-				'content'=>$appointment[1];
+				'time'=>$appointment[0],
+				'content'=>$appointment[1]
 				);
 				
 				$statement=$connection->prepare('INSERT INTO appointment (time,content) VALUES(:time,:content)');
