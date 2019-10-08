@@ -28,7 +28,7 @@ if(!is_null($events['events'])){
 			$user='isnivawtdytcrl';
 			$pass='fab82d419311ad5a75b8c1719c6acc014ee88e6f7954c3bfe7f134401d838587';
 			$connection=new PDO("pgsql:dbname=$dbname;host=$host", $user, $pass);
-			$sql=sprintf('SELECT * FROM poll WHERE user_id='%s'',$event['source']['userId']);		
+			$sql=sprintf("SELECT * FROM poll WHERE user_id='%s'",$event['source']['userId']);		
 			$result=$connection->query($sql);
 			error_log($sql);
 			if ($result==false || $result->rowcount()<=0){
