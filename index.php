@@ -32,6 +32,7 @@ if(!is_null($events['events'])){
 			$result=$connection->query($sql);
 			error_log($sql);
 			if ($result==false || $result->rowcount()<=0){
+				
 			switch ($event['message']['text']){
 				case'1':
 				#Insert
@@ -106,7 +107,7 @@ if(!is_null($events['events'])){
 				break;
 			}
 			}else{
-					$respMessage="ท่านได้ตอบโพลล์นี้แล้ว"
+					$respMessage="ท่านได้ตอบโพลล์นี้แล้ว";
 			}
 		
 			$httpClient=new CurlHTTPClient($channel_token);
